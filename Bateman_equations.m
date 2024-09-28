@@ -1,7 +1,8 @@
 function N=Bateman_equations(N0,lambda)
-    %initializing arrays
+   %initializing arrays
     syms s;
     n=length(lambda);
+    n_ic=length(N0);
     A=sym(zeros(n));
     b=zeros(n,1);
     N=sym(zeros(n,1));
@@ -15,7 +16,9 @@ function N=Bateman_equations(N0,lambda)
         A(i,i-1)=-lambda(i-1);
     end
     %initial condition (more can be added for other isotopes)
-    b(1)=N0;
+     for i=1:n_ic
+         b(i,1)=N0(i);
+    end
     %finding the solution in the Laplace domain
     N_s=A\b;
     %The output is an array with the solved functions in the time domain
